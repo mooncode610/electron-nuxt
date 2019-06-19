@@ -1,8 +1,10 @@
 <template>
     <header class="main-header">
         <nav>
-            <div><nuxt-link to="/" exact>System info</nuxt-link></div>
-            <div><nuxt-link to="/other" exact>Next page</nuxt-link></div>
+            <div><nuxt-link to="/" exact>Home</nuxt-link></div>
+            <div><nuxt-link to="/topics">Topics</nuxt-link></div>
+            <div><nuxt-link to="/counter">Counter</nuxt-link></div>
+            <div><nuxt-link to="/documentation">Documentation</nuxt-link></div>
         </nav>
     </header>
 </template>
@@ -16,9 +18,9 @@
 
 <style scoped>
     .main-header {
-        height: 50px;
+        height: 80px;
         display: flex;
-        background-color: #364758;
+        background-color: rgba(95, 158, 160, 0.9);
     }
 
     nav{
@@ -37,13 +39,13 @@
     a {
         font-family: Helvetica, sans-serif;
         color: white;
-        font-size: 1rem;
+        font-size: 1.2rem;
         font-weight: 100;
-        text-decoration: underline;
+        text-decoration: none;
         text-transform: uppercase;
     }
 
     a:hover{
-        opacity: 0.9;
+        text-decoration: underline;
     }
 </style>

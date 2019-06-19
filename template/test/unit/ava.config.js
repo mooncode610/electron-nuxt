@@ -4,6 +4,9 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..', '..', 'src', 'renderer').replace(/\\/g, '/');
 
 
+console.log(ROOT);
+console.log(__dirname)
+
 export default {
     "files": [
         "test/unit/specs/**/*",
