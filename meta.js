@@ -1,14 +1,6 @@
 'use strict';
 
 module.exports = {
-    metalsmith: {
-      before: (metalsmith) =>{
-          Object.assign(
-              metalsmith.metadata(),
-              {isCI: process.env.CI}
-          )
-      }
-    },
     prompts: {
         name: {
             type: 'string',
@@ -32,7 +24,12 @@ module.exports = {
             type: 'string',
             required: false,
             message: 'Project description',
-            default: 'An electron-nuxt project'
+            default: 'An electron-vue project'
+        },
+        usesass: {
+            type: 'confirm',
+            message: 'Use Sass / Scss?',
+            required: true
         },
         cssFramework: {
             type: 'list',
@@ -54,53 +51,6 @@ module.exports = {
                     short: 'Buefy'
                 }
             ]
-        },
-        cssPreprocessor: {
-            type: 'list',
-            message: 'Select which css pre-processor install',
-            choices: [
-                {
-                    name: 'none',
-                    value: 'none',
-                    short: 'none'
-                },
-                {
-                    name: 'Sass (scss)',
-                    value: 'sass',
-                    short: 'Sass'
-                },
-                {
-                    name: 'LESS',
-                    value: 'less',
-                    short: 'LESS'
-                },
-                {
-                    name: 'Stylus',
-                    value: 'stylus',
-                    short: 'Stylus'
-                }
-            ]
-        },
-        iconSet: {
-          type: 'list',
-          message: 'Select with icon set install',
-          choices: [
-              {
-                  name: 'none',
-                  value: 'none',
-                  short: 'none'
-              },
-              {
-                  name: 'Material Design Icon',
-                  value: 'mdi',
-                  short: 'Material Icon'
-              },
-              {
-                  name: 'Font Awesome 5',
-                  value: 'fa5',
-                  short: 'Font Awesome 5'
-              }
-          ]
         },
         eslint: {
             type: 'confirm',
@@ -132,12 +82,12 @@ module.exports = {
         },
         unit: {
             type: 'confirm',
-            message: 'Set up unit testing with vue-test-utils + AVA?',
+            message: 'Set up unit testing with Karma + Mocha?',
             required: true
         },
         e2e: {
             type: 'confirm',
-            message: 'Set up end-to-end testing with Spectron + AVA?',
+            message: 'Set up end-to-end testing with Spectron + Mocha?',
             require: true
         }
     },
@@ -146,6 +96,25 @@ module.exports = {
             if (list[check]) return opts.fn(this)
             else return opts.inverse(this)
         },
+        deps (plugins) {
+            let output = ''
+            let dependencies = {
+                'axios': '^0.18.0',
+                'vue-electron': '^1.0.6',
+                'vue-router': '^3.0.1',
+                'vuex': '^3.0.1',
+                'vuex-electron': '^1.0.0'
+            }
+
+            if (Object.keys(plugins).length > 0) output += ',\n'
+
+            Object.keys(plugins).forEach((p, i) => {
+                output += `    "${p}": "${dependencies[p]}"`
+                if (i !== Object.keys(plugins).length - 1) output += ',\n'
+            })
+
+            return output
+        },
         testing (unit, e2e, opts) {
             if (unit || e2e) {
                 return opts.fn(this)
@@ -153,25 +122,27 @@ module.exports = {
         }
     },
     filters: {
-        'src/renderer/plugins/buefy.js': 'cssFramework === \'buefy\'',
-        'src/renderer/plugins/vuetify.js': 'cssFramework === \'vuetify\'',
+        'src/renderer/routes.js': 'plugins[\'vue-router\']',
+        'src/renderer/components/LandingPageView/CurrentPage.vue': 'plugins[\'vue-router\']',
+        'src/renderer/router/**/*': 'plugins[\'vue-router\']',
+        'src/renderer/store/**/*': 'plugins[\'vuex\']',
         'test/e2e/**/*': 'e2e',
         'test/unit/**/*': 'unit',
-        'ava.config.js': 'e2e || unit',
+        '.electron-vue/build.config.js': 'builder === \'packager\'',
         'test/.eslintrc': 'e2e || unit',
         '.eslintignore': 'eslint',
-        '.eslintrc.js': 'eslint'
+        '.eslintrc.js': 'eslint',
+        'appveyor.yml': 'builder === \'builder\'',
+        '.travis.yml': 'builder === \'builder\''
     },
     complete (data) {
-        console.log('---------------------------------------------------------------------');
-        console.log('All set. Welcome to your new electron-nuxt project!');
+
+        console.log('All set. Welcome to your new electron-vue project!');
         console.log('Make sure to check out the documentation for this boilerplate at');
-        console.log('https://github.com/michalzaq12/electron-nuxt#documentation');
-        console.log('\n');
-        console.log('\t Next Steps:');
-        console.log(`\t cd ${data.destDirName}`)
-        console.log('\t npm install');
-        console.log('\t npm run dev');
+        console.log('https://simulatedgreg.gitbooks.io/electron-vue/content');
+        console.log('Next Steps:');
+        console.log('\t yarn (or `npm install`)');
+        console.log('\t yarn run dev (or `npm run dev`)');
 
     }
 };

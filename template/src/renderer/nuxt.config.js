@@ -9,5 +9,9 @@ module.exports = {
     head: {
         title: 'Electron-nuxt'
     },
-    loading: false
+    loading: false,
+    plugins: [
+        {ssr: true, src: '@/plugins/icons.js'},
+        {ssr: true, src: '@/plugins/buefy.js'},
+    ]
 };
