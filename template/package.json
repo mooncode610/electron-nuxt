@@ -8,7 +8,7 @@
     "@mdi/font": "4.4.95",
     "@nuxt/typescript-build": "0.1.11",
     "@nuxtjs/vuetify": "1.6.1",
-    "ava": "2.3.0",
+    "ava": "2.4.0",
     "browser-env": "3.2.6",
     "buefy": "0.8.2",
     "cross-env": "5.2.1",
@@ -40,7 +40,7 @@
     "require-extension-hooks-babel": "1.0.0",
     "require-extension-hooks-vue": "0.4.2",
     "babel-plugin-webpack-alias-7": "0.1.1",
-    "webpack": "4.40.2",
+    "webpack": "4.40.0",
     "webpack-node-externals": "1.7.2"
   }
 }
