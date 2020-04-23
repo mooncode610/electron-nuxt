@@ -14,7 +14,7 @@
     "cross-env": "7.0.2",
     "deepmerge": "4.2.2",
     "electron": "8.1.1",
-    "electron-builder": "22.4.1",
+    "electron-builder": "22.5.1",
     "electron-debug": "3.0.1",
     "roboto-fontface": "0.10.0",
     "element-ui": "2.13.0",
@@ -41,7 +41,7 @@
     "require-extension-hooks-babel": "1.0.0",
     "require-extension-hooks-vue": "0.4.2",
     "babel-plugin-webpack-alias-7": "0.1.1",
-    "webpack": "4.43.0",
+    "webpack": "4.42.1",
     "webpack-node-externals": "1.7.2"
   }
 }
