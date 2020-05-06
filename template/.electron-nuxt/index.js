@@ -18,15 +18,10 @@ const launcher = new ElectronLauncher({
   entryFile: path.join(DIST_DIR, 'main/index.js')
 })
 
-function hasConfigArgument (array) {
-  for (const el of array) if (el === '--config' || el === '-c') return true
-  return false
-}
-const argumentsArray = process.argv.slice(2)
-if (!hasConfigArgument(argumentsArray)) argumentsArray.push('--config', 'builder.config.js')
-
 const builder = new ElectronBuilder({
-  processArgv: argumentsArray
+  cliOptions: {
+    config: path.join(__dirname, '../builder.config.js')
+  }
 })
 
 const webpackConfig = Webpack.getBaseConfig({
