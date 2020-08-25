@@ -8,8 +8,7 @@
 module.exports = {
   mode: 'spa', // or 'universal'
   head: {
-    title: '{{name}}',
-    meta: [{ charset: "utf-8" }]
+    title: '{{name}}'
   },
   loading: false,
   plugins: [
